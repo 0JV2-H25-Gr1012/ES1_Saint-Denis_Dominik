@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Catapult : MonoBehaviour
+using UnityEngine.SceneManagement;
+public class RestartScene : MonoBehaviour
 {
     [SerializeField]private int  _timer = 5;
-     [SerializeField]private GameObject _canon;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,15 +17,11 @@ public class Catapult : MonoBehaviour
     {
         
     }
-
-    public void OnTriggerEnter(Collider other) {
-        gameObject.SetActive(false);
-        Invoke("SetActive",_timer);
-        
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "BilleRouge"){
+        Invoke("Restart",_timer);}
     }
-    
-     private void SetActive(){
-        _canon.SetActive(true);
-        
+    private void Restart(){
+       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
